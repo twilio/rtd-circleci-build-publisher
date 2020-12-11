@@ -8,4 +8,3 @@ lib
 .vscode
 test/credentials.json
 npm-debug.log
-package-lock.json
