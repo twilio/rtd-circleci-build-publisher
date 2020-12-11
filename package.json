@@ -1,8 +1,11 @@
 {
-  "name": "travis-build-publisher",
-  "version": "2.1.0",
-  "description": "Generates an unique version string to publish a build result",
+  "name": "circleci-build-publisher",
+  "version": "1.0.0",
+  "description": "Tools to prepare Twilio JS projects for npm publishing.",
   "author": "Sergei Chertkov",
+  "contributors": [
+    "Berkus Decker <berkus+npm@gmail.com>"
+  ],
   "license": "BEER-WARE",
   "bin": {
     "publish-build": "./bin/publish-build",
@@ -11,6 +14,6 @@
     "get-channel-name": "./bin/get-channel-name"
   },
   "dependencies": {
-    "semver": "^5.5.0"
+    "semver": "^7.3.4"
   }
 }

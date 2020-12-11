@@ -8,7 +8,7 @@ fi
 
 export PREFIX=$(echo $1 | perl -p -e "s/@/\\\@/g")
 
-echo "Stripping private repo prefix from package.json and source files: $PREFIX"
+echo -n "Stripping private repo prefix '$PREFIX' from package.json and source files .. "
 
 if [ -d "test" ]; then
     find ./test -name "*.ts" -exec perl -pi -e "s/(import.*)$PREFIX\/(.*)/\$1\$2/" {} \;

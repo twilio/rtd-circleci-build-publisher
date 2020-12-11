@@ -3,24 +3,17 @@
 const exec = require('child_process').execSync;
 
 function getChannelName() {
-    const travisTag = String(process.env.TRAVIS_TAG);
-    if (travisTag.startsWith('release-')) {
-        let isRC = /release-.*rc.*/.test(travisTag);
+    const circleTag = String(process.env.CIRCLE_TAG);
+    if (circleTag.startsWith('release-')) {
+        let isRC = /release-.*rc.*/.test(circleTag);
         if (isRC) {
             return 'alpha';
         }
         return 'latest';
     }
 
-    let branchName = String(process.env.TRAVIS_PULL_REQUEST_BRANCH);
-    if (branchName.length == 0) {
-        branchName = String(process.env.TRAVIS_BRANCH);
-    }
-    branchName = branchName.replace(/\//g, '-');
+    let branchName = String(process.env.CIRCLE_BRANCH).replace(/\//g, '-');
     return branchName;
-
-    // Git version doesn't work because travis always has HEAD
-    //return String(exec('git rev-parse --abbrev-ref HEAD')).trim();
 }
 
 console.log(getChannelName());

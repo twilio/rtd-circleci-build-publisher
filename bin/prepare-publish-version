@@ -4,15 +4,15 @@ const semver = require('semver');
 const exec = require('child_process').execSync;
 
 function createBuildNumber() {
-    const travisTag = String(process.env.TRAVIS_TAG);
-    if (travisTag.startsWith('release-')) {
+    const circleTag = String(process.env.CIRCLE_TAG);
+    if (circleTag.startsWith('release-')) {
         // If tag start from release, just get a version from tag
-        return travisTag.replace('release-', '');
+        return circleTag.replace('release-', '');
     }
 
-    const buildNumber = Number(process.env.TRAVIS_BUILD_NUMBER);
+    const buildNumber = Number(process.env.CIRCLE_BUILD_NUM);
     if (!buildNumber) {
-      console.error('Failed to get a build number: are we on Travis?');
+      console.error('Failed to get a build number: are we on Circle?');
       process.exit(1);
     }
 
@@ -22,14 +22,8 @@ function createBuildNumber() {
     const version = proj.version.replace(/-.*/, '');
     console.log('Stripped version', version);
 
-    let branchName = String(process.env.TRAVIS_PULL_REQUEST_BRANCH);
-    if (branchName.length == 0) {
-        branchName = String(process.env.TRAVIS_BRANCH);
-    }
-    branchName = branchName.replace(/\//g, '-');
+    let branchName = String(process.env.CIRCLE_BRANCH).replace(/\//g, '-');
 
-    // Git version doesn't work because travis always has HEAD
-    // let branchName = String(exec('git rev-parse --abbrev-ref HEAD')).trim();
     console.log(`Branch name is: ${branchName}`);
 
     return `${version}-${branchName}.${buildNumber}`;
@@ -40,7 +34,7 @@ console.log('Constructed version: ', buildName);
 
 const versionToPublish = semver.clean(buildName);
 if (!versionToPublish) {
-  console.error('Failed to construct a new version');
+  console.error('Failed to construct package version');
   process.exit(1);
 }
 
