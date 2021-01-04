@@ -22,7 +22,7 @@ function createBuildNumber() {
     const version = proj.version.replace(/-.*/, '');
     console.log('Stripped version', version);
 
-    let branchName = String(process.env.CIRCLE_BRANCH).replace(/\//g, '-');
+    let branchName = String(process.env.CIRCLE_BRANCH).replace(/[\/_]/g, '-');
 
     console.log(`Branch name is: ${branchName}`);
 
