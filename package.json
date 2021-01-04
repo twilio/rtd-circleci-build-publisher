@@ -1,6 +1,6 @@
 {
   "name": "circleci-build-publisher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tools to prepare Twilio JS projects for npm publishing.",
   "author": "Sergei Chertkov",
   "contributors": [
