@@ -30,7 +30,7 @@ function createBuildNumber() {
 }
 
 const buildName = createBuildNumber();
-console.log('Constructed version: ', buildName);
+console.log(`Constructed version: ${buildName}`);
 
 const versionToPublish = semver.clean(buildName);
 if (!versionToPublish) {
