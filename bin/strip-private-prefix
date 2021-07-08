@@ -32,11 +32,11 @@ fi
 echo -n "Stripping private repo prefix '$PREFIX' from package.json and source files .. "
 
 if [ -d "test" ]; then
-  find ./test -name "*.ts" -exec perl -pi -e "s/(import.*)$PREFIX\/(.*)/\$1\$2/" {} \;
+  find ./test -name "*.ts" -exec perl -pi -e "s/(} from [\"'])$PREFIX\/([^\"']+[\"'];)/\$1\$2/" {} \;
 fi
 
 if [ -d "src" ]; then
-  find ./src -name "*.ts" -exec perl -pi -e "s/(import.*)$PREFIX\/(.*)/\$1\$2/" {} \;
+  find ./src -name "*.ts" -exec perl -pi -e "s/(} from [\"'])$PREFIX\/([^\"']+[\"'];)/\$1\$2/" {} \;
 fi
 
 perl -pi -e "s/(.*)$PREFIX\/(.*)/\$1\$2/" package.json
